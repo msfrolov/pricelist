@@ -1,8 +1,6 @@
 package com.msfrolov.pricelist.service;
 
 import com.msfrolov.pricelist.exception.PriceException;
-import com.msfrolov.pricelist.model.Category;
-import com.msfrolov.pricelist.model.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -39,7 +37,7 @@ public class PriceServiceImpl implements PriceService {
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
-    @Override public Product add(Product product) {
+    @Override public <T> T add(T product) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(product);
@@ -51,24 +49,13 @@ public class PriceServiceImpl implements PriceService {
         return product;
     }
 
-    @Override public Category addCat(Category category) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(category);
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            throw new PriceException("failed to add entity in db", e);
-        }
-        entityManager.getTransaction().commit();
-        return category;
-    }
 
-    @Override public List<Product> findAll() {
-        TypedQuery<Product> namedQuery = entityManager.createNamedQuery("Product.getAll", Product.class);
+    @Override public <T> List<T> findAll(Class clazz) {
+        TypedQuery<T> namedQuery = entityManager.createNamedQuery("Product.getAll", clazz);
         return namedQuery.getResultList();
     }
 
-    @Override public List<Product> findByFilters(Map<String, Object> criteria) {
+    @Override public  <T> List<T> findByFilters(Map<String, Object> filters, Class clazz) {
         return null;
     }
 }

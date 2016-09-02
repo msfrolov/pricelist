@@ -24,7 +24,7 @@ public class WelcomeAction implements Action {
     @Override public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
         log.debug("welcome action");
         PriceService service = serviceFactory.getService("PriceService", PriceService.class);
-        List<Product> products = service.findAll();
+        List<Product> products = service.findAll(Product.class);
         request.setAttribute("products", products);
         Properties properties = PropertiesManager.getProperties("properties/message.properties");
         request.setAttribute("message", properties.getProperty("welcome"));

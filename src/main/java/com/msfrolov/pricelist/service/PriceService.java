@@ -1,20 +1,15 @@
 package com.msfrolov.pricelist.service;
 
-import com.msfrolov.pricelist.model.Category;
-import com.msfrolov.pricelist.model.Product;
-
 import java.util.List;
 import java.util.Map;
 
 public interface PriceService {
 
-    Product add(Product product);
+    <T> T add(T product);
 
-    Category addCat(Category category);
+    <T> List<T> findAll(Class clazz);
 
-    List<Product> findAll();
-
-    List<Product> findByFilters(Map<String, Object> criteria);
+    <T> List<T> findByFilters(Map<String, Object> filters, Class clazz);
 
 }
 

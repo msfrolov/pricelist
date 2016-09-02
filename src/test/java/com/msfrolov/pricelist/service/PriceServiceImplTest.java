@@ -32,7 +32,7 @@ public class PriceServiceImplTest {
         //given
         PriceService service = new PriceServiceImpl();
         //when
-        List<Product> all = service.findAll();
+        List<Product> all = service.findAll(Product.class);
         //then
         assertEquals(12, all.size());
     }
@@ -42,7 +42,7 @@ public class PriceServiceImplTest {
         PriceService service = new PriceServiceImpl();
         //when
         // TODO: 9/3/2016 implement findByFilters
-        List<Product> all = service.findAll();
+        List<Product> all = service.findAll(Product.class);
         //then
         assertEquals(12, all.size());
     }
@@ -50,7 +50,7 @@ public class PriceServiceImplTest {
     @Test public void ShouldAddTestDataInDBIfThereItIsEmpty() throws Exception {
         //given
         PriceService service = new PriceServiceImpl();
-        List<Product> all = service.findAll();
+        List<Product> all = service.findAll(Product.class);
         //when
         if (all.isEmpty()) {
             List<String> garden = readFileToList("price/Садовая.txt");
@@ -69,7 +69,7 @@ public class PriceServiceImplTest {
         Random random = new Random();
         Category category = new Category();
         category.setName(categoryName);
-        service.addCat(category);
+        service.add(category);
         for (String s : productNames) {
             log.debug("try to add product - {}", s);
             Product product = new Product();

@@ -31,10 +31,8 @@ public class ApplyFilterAction implements Action {
         addNumberFiler(request, "price_from", filterMap);
         addNumberFiler(request, "price_to", filterMap);
 
-
-
         PriceService service = serviceFactory.getService("PriceService", PriceService.class);
-        List<Product> products = service.findAll();
+        List<Product> products = service.findByFilters(filterMap, Product.class);
         request.setAttribute("products", products);
         return result;
     }
