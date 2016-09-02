@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 version="2.0">
+
+    <description>XML Mapping file</description>
+
+    <package>com.msfrolov.pricelist.model</package>
+
+    <named-query name="Product.getAll">
+        <query>select n from PROD n</query>
+    </named-query>
+
+    <mapped-superclass class="BaseEntity">
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="AUTO"/>
+            </id>
+        </attributes>
+    </mapped-superclass>
+
+    <entity class="Product" name="PROD" access="FIELD">
+
+        <attributes>
+            <many-to-one name="category" fetch="LAZY">
+                <join-column name="CAT_ID"/>
+            </many-to-one>
+            <basic name="name">
+                <column name="NAME"/>
+            </basic>
+            <basic name="price">
+                <column name="PRICE"/>
+            </basic>
+        </attributes>
+    </entity>
+
+    <entity class="Category" name="CAT" access="FIELD">
+        <attributes>
+            <!--<one-to-many name="name" target-entity="Product" mapped-by="category"/>-->
+            <basic name="name">
+                <column name="NAME"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
