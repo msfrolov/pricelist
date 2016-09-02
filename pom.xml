@@ -12,6 +12,10 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
+        <maven.plugins.version>3.5.1</maven.plugins.version>
+
+        <jpa-api.version>1.0.0.Final</jpa-api.version>
+        <hiber.version>5.1.0.Final</hiber.version>
         <h2-dbms.version>1.4.192</h2-dbms.version>
 
         <servlet-api.version>3.1.0</servlet-api.version>
@@ -30,7 +34,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>${maven.plugins.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -40,32 +44,23 @@
     </build>
 
     <dependencies>
-        <!--&lt;!&ndash;JPA API&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate.javax.persistence</groupId>-->
-        <!--<artifactId>hibernate-jpa-2.0-api</artifactId>-->
-        <!--<version>1.0.1.Final</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>org.hibernate</groupId>-->
-        <!--<artifactId>hibernate-entitymanager</artifactId>-->
-        <!--<version>5.1.0.Final</version>-->
-        <!--</dependency>-->
+        <!--JPA-->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.1.0.Final</version>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>${jpa-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.1.0.Final</version>
+            <version>${hiber.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hiber.version}</version>
         </dependency>
+
         <!--H2 DBMS-->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -93,13 +88,6 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-        </dependency>
-
-        <!--Joda-->
-        <dependency>
-            <groupId>org.joda</groupId>
-            <artifactId>joda-money</artifactId>
-            <version>LATEST</version>
         </dependency>
 
         <!--Logger-->

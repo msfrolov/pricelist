@@ -6,29 +6,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 
 public class PriceServiceImpl implements PriceService {
-
-
-    //    @Override
-    //    public List<Product> findAll() {
-    //        ArrayList<Product> products = new ArrayList<>();
-    //        Category category = new Category();
-    //        category.setId(11);
-    //        category.setName("Category");
-    //        for (int i = 1; i <= 10; i++) {
-    //            Product product = new Product();
-    //            product.setId(i);
-    //            product.setName("Name");
-    //            product.setCategory(category);
-    //            product.setPrice(Money.parse("KZT 20"));
-    //            products.add(product);
-    //        }
-    //        return products;
-    //    }
-
 
     private EntityManager entityManager;
 
@@ -55,7 +41,25 @@ public class PriceServiceImpl implements PriceService {
         return namedQuery.getResultList();
     }
 
-    @Override public  <T> List<T> findByFilters(Map<String, Object> filters, Class clazz) {
-        return null;
+    @Override public <T> List<T> findByFilters(Map<String, Object> filters, Class clazz) {
+        if (filters.isEmpty()){
+            return null;
+        }
+//        create query
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
+        Root<T> root = query.from(clazz);
+//        check name
+        String name = (String) filters.get("name");
+        if (name!=null) {
+            Expression<String> path = root.get("name");
+            Predicate like = criteriaBuilder.like(path, name + "%");
+            query.where(like);
+        }
+        query.select(root);
+
+//        query.
+        TypedQuery<T> typedQuery = entityManager.createQuery(query);
+        return typedQuery.getResultList();
     }
 }

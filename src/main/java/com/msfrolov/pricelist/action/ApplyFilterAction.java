@@ -4,6 +4,7 @@ import com.msfrolov.pricelist.exception.PriceException;
 import com.msfrolov.pricelist.model.Product;
 import com.msfrolov.pricelist.service.PriceService;
 import com.msfrolov.pricelist.service.ServiceFactory;
+import com.msfrolov.pricelist.util.PropertiesManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 public class ApplyFilterAction implements Action {
 
@@ -33,6 +35,10 @@ public class ApplyFilterAction implements Action {
 
         PriceService service = serviceFactory.getService("PriceService", PriceService.class);
         List<Product> products = service.findByFilters(filterMap, Product.class);
+        if (products==null){
+            Properties properties = PropertiesManager.getProperties("properties/message.properties");
+            request.setAttribute("message", properties.getProperty("empty-filters"));
+        }
         request.setAttribute("products", products);
         return result;
     }
