@@ -28,14 +28,13 @@ public class ApplyFilterAction implements Action {
     @Override public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
         log.debug("filter action");
         Map<String, Object> filterMap = new HashMap<>();
-        addStringFiler(request, "category", filterMap);
-        addStringFiler(request, "name", filterMap);
-        addNumberFiler(request, "price_from", filterMap);
-        addNumberFiler(request, "price_to", filterMap);
-
+        addStringFiler("category", filterMap, request, response);
+        addStringFiler("name", filterMap, request, response);
+        addNumberFiler("price_from", filterMap, request, response);
+        addNumberFiler("price_to", filterMap, request, response);
         PriceService service = serviceFactory.getService("PriceService", PriceService.class);
         List<Product> products = service.findByFilters(filterMap, Product.class);
-        if (products==null){
+        if (products == null) {
             Properties properties = PropertiesManager.getProperties("properties/message.properties");
             request.setAttribute("message", properties.getProperty("empty-filters"));
         }
@@ -43,24 +42,32 @@ public class ApplyFilterAction implements Action {
         return result;
     }
 
-    private void addStringFiler(HttpServletRequest request, String filterName, Map<String, Object> filterMap) {
+    private void addStringFiler(final String filterName, Map<String, Object> filterMap, HttpServletRequest request,
+            HttpServletResponse response) {
         log.debug("add string filter: {}", filterName);
         String filter = request.getParameter(filterName);
+        request.setAttribute(filterName, filter);
         if (filter != null && !filter.isEmpty()) {
+            log.debug("filterName: {}", filterName);
+            log.debug("filterValue: {}", filter);
             filterMap.put(filterName, filter);
         }
     }
 
-    private void addNumberFiler(HttpServletRequest request, String filterName, Map<String, Object> filterMap) {
+    private void addNumberFiler(final String filterName, Map<String, Object> filterMap, HttpServletRequest request,
+            HttpServletResponse response) {
         log.debug("add number filter: {}", filterName);
         String filter = request.getParameter(filterName);
+        request.setAttribute(filterName, filter);
         if (filter != null && !filter.isEmpty()) {
             BigDecimal filterNumber;
             try {
                 filterNumber = new BigDecimal(filter);
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new PriceException("failed to convert string in number", e);
             }
+            log.debug("filterName: {}", filterName);
+            log.debug("filterValue: {}", filterNumber);
             filterMap.put(filterName, filterNumber);
         }
     }

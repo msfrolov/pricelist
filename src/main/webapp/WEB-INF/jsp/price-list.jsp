@@ -25,11 +25,13 @@
         </td>
         <td width="80%">
             <div style="align-content: inherit">
-                <form name="price" method="GET" action="<c:url value="/do/filter"/>">
-                    <input name="category" id="category" type="text" placeholder="Enter category"/>
-                    <input name="name" id="name" type="text" placeholder="Enter name"/>
-                    <input name="price_from" id="price_from" type="text" placeholder="Enter the minimum price"/>
-                    <input name="price_to" id="price_to" type="text" placeholder="Enter the maximum price"/>
+                <form name="price" method="POST" action="<c:url value="/do/filter"/>">
+                    <input value="${category}" name="category" id="category" type="text" placeholder="Enter category"/>
+                    <input value="${name}" name="name" id="name" type="text" placeholder="Enter name"/>
+                    <input value="${price_from}" name="price_from" id="price_from" type="text"
+                           placeholder="Enter the minimum price"/>
+                    <input value="${price_to}" name="price_to" id="price_to" type="text"
+                           placeholder="Enter the maximum price"/>
                     <input name="find" id="find" title="Find" type="submit">
                 </form>
             </div>
@@ -38,7 +40,7 @@
                     <tr>
                         <td width="40%">${product.category}</td>
                         <td width="40%">${product.name}</td>
-                        <td width="20%">${product.price}</td>
+                        <td width="20%" align="right">${product.price}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -47,7 +49,7 @@
     <tr>
         <td colspan="2" valign="top">
             <div style="background-color : lightgray; widht:100%; height:35px;">
-                <h3>Copyright&copy; September 2016. All rights reserved ¯\_(ツ)_/¯ Maxim Frolov</h3>
+                <h3>September 2016. Maxim Frolov (Максим Фролов)</h3>
             </div>
         </td>
     </tr>

@@ -7,12 +7,12 @@ import java.util.Properties;
 
 public class ServiceFactory {
 
-    public static void main(String[] args) {
-        PriceService priceService = new ServiceFactory().getService("PriceService", PriceService.class);
-        System.out.println(priceService);
-    }
-
-    public <T> T getService(String beanName, Class clazz) {
+    /**
+     * Method for implementing flexibility with injection interface implementation
+     *
+     * @return an instance of service implementation
+     */
+    public <T> T getService(String beanName, Class beanClass) {
         T service;
         Properties properties = PropertiesManager.getProperties("properties/bean-context.properties");
         String s = properties.getProperty(beanName);

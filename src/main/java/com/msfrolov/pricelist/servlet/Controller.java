@@ -24,16 +24,17 @@ public class Controller extends HttpServlet {
         actionFactory = new ActionFactory();
     }
 
-    @Override public void service(HttpServletRequest req, HttpServletResponse resp)
+    @Override public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String actionName = req.getMethod() + req.getPathInfo();
+        request.setCharacterEncoding("UTF-8");
+        String actionName = request.getMethod() + request.getPathInfo();
         log.debug("action name: {}", actionName);
         Action action = actionFactory.getAction(actionName);
         log.debug("action: {}", action);
-        if (checkAction(resp, action))
+        if (checkAction(response, action))
             return;
-        ActionResult result = action.execute(req, resp);
-        doForwardOrRedirect(result, req, resp);
+        ActionResult result = action.execute(request, response);
+        doForwardOrRedirect(result, request, response);
     }
 
     private boolean checkAction(HttpServletResponse resp, Action action) throws IOException {
