@@ -4,7 +4,6 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
     <persistence-unit name="com.msfrolov.pricelist" transaction-type="RESOURCE_LOCAL">
-        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

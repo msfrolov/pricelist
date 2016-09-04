@@ -57,9 +57,9 @@ public class PriceServiceImplTest {
         List<Product> all = service.findAll(Product.class);
         //when
         if (all.isEmpty()) {
-            List<String> garden = readFileToList("price/Садовая.txt");
-            List<String> dining = readFileToList("price/Столовая.txt");
-            List<String> living = readFileToList("price/Гостинная.txt");
+            List<String> garden = readFileToList("price/Monitor ProView.txt");
+            List<String> dining = readFileToList("price/Notebook Acer.txt");
+            List<String> living = readFileToList("price/Monitor Sony.txt");
             //then
             handleList("Садовая мебель", garden, service);
             handleList("Столовая мебель", dining, service);

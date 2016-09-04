@@ -1,6 +1,5 @@
 package com.msfrolov.pricelist.action;
 
-import com.msfrolov.pricelist.exception.PriceException;
 import com.msfrolov.pricelist.model.Product;
 import com.msfrolov.pricelist.service.PriceService;
 import com.msfrolov.pricelist.service.ServiceFactory;
@@ -27,23 +26,25 @@ public class ApplyFilterAction implements Action {
 
     @Override public ActionResult execute(HttpServletRequest request, HttpServletResponse response) {
         log.debug("filter action");
+        StringBuilder message = new StringBuilder();
         Map<String, Object> filterMap = new HashMap<>();
-        addStringFiler("category", filterMap, request, response);
-        addStringFiler("name", filterMap, request, response);
-        addNumberFiler("price_from", filterMap, request, response);
-        addNumberFiler("price_to", filterMap, request, response);
+        addStringFiler("category", filterMap, request, message);
+        addStringFiler("name", filterMap, request, message);
+        addNumberFiler("price_from", filterMap, request, message);
+        addNumberFiler("price_to", filterMap, request, message);
         PriceService service = serviceFactory.getService("PriceService", PriceService.class);
         List<Product> products = service.findByFilters(filterMap, Product.class);
         if (products == null) {
             Properties properties = PropertiesManager.getProperties("properties/message.properties");
-            request.setAttribute("message", properties.getProperty("empty-filters"));
+            message.append(properties.getProperty("empty-filters"));
         }
         request.setAttribute("products", products);
+        request.setAttribute("message", message);
         return result;
     }
 
     private void addStringFiler(final String filterName, Map<String, Object> filterMap, HttpServletRequest request,
-            HttpServletResponse response) {
+            StringBuilder message) {
         log.debug("add string filter: {}", filterName);
         String filter = request.getParameter(filterName);
         request.setAttribute(filterName, filter);
@@ -55,7 +56,7 @@ public class ApplyFilterAction implements Action {
     }
 
     private void addNumberFiler(final String filterName, Map<String, Object> filterMap, HttpServletRequest request,
-            HttpServletResponse response) {
+            StringBuilder message) {
         log.debug("add number filter: {}", filterName);
         String filter = request.getParameter(filterName);
         request.setAttribute(filterName, filter);
@@ -63,12 +64,13 @@ public class ApplyFilterAction implements Action {
             BigDecimal filterNumber;
             try {
                 filterNumber = new BigDecimal(filter);
+                log.debug("filterName: {}", filterName);
+                log.debug("filterValue: {}", filterNumber);
+                filterMap.put(filterName, filterNumber);
             } catch (Exception e) {
-                throw new PriceException("failed to convert string in number", e);
+                Properties properties = PropertiesManager.getProperties("properties/message.properties");
+                message.append(properties.getProperty("failed-number-filter"));
             }
-            log.debug("filterName: {}", filterName);
-            log.debug("filterValue: {}", filterNumber);
-            filterMap.put(filterName, filterNumber);
         }
     }
 }

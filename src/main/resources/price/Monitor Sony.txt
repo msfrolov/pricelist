@@ -1,0 +1,7 @@
+SONY Multiscan A220	17`, 0.24, TCO92, FD Trinitron, 1024x768/88Hz
+SONY Multiscan G220	17`, 0.24, TCO99, FD Trinitron, 1280x1024/91Hz, USB hub
+SONY Multiscan A420	19`, 0.24, TCO92, FD Trinitron, 1280x1024/91Hz, USB hub
+SONY Multiscan G420	19`, 0.24, TCO99, FD Trinitron, 1600x1200/89Hz, USB hub
+SONY Multiscan G520	21`, 0.24, TCO99, FD Trinitron, 1800x1440/87Hz, USB hub
+SONY Multiscan F520	21`, 0.22, TCO99, FD Trinitron, 2048x1536/86Hz, USB hub
+SONY Multiscan FW900	24`, 0.22, TCO99, FD Trinitron, 2048x1280/85Hz, USB hub

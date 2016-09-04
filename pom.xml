@@ -7,6 +7,7 @@
     <groupId>com.msfrolov</groupId>
     <artifactId>pricelist</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>

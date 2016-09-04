@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
@@ -20,7 +20,7 @@
     <tr valign="top">
         <td height="200" width="20%">
             <div>
-                <a href="/do/" title="pricelist">pricelist</a>
+                <a href="<c:url value="/do/"/>" title="pricelist">pricelist</a>
             </div>
         </td>
         <td width="80%">
@@ -49,7 +49,7 @@
     <tr>
         <td colspan="2" valign="top">
             <div style="background-color : lightgray; widht:100%; height:35px;">
-                <h3>September 2016. Maxim Frolov (Максим Фролов)</h3>
+                <h3>September 2016. Maxim Frolov</h3>
             </div>
         </td>
     </tr>

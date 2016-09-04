@@ -62,7 +62,7 @@ public class PriceServiceImpl implements PriceService {
      * @return result list with entity which match criteria
      */
     @Override public <T> List<T> findByFilters(Map<String, Object> filters, Class clazz) {
-        log.debug("_FILTERS: cont-{}", filters);
+        log.debug("Filters: cont-{}", filters);
         if (filters.isEmpty()) {
             return null;
         }
@@ -74,7 +74,7 @@ public class PriceServiceImpl implements PriceService {
         criteriaQuery.select(entity);
         TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
         List<T> resultList = typedQuery.getResultList();
-        log.debug("!!!Result: {}", resultList);
+        log.debug("Result: {}", resultList);
         return resultList;
     }
 
