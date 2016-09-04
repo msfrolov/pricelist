@@ -1,57 +1,25 @@
-package com.msfrolov.pricelist.service;
+package com.msfrolov.pricelist.extra;
 
+import com.msfrolov.pricelist.action.WelcomeAction;
 import com.msfrolov.pricelist.model.Category;
 import com.msfrolov.pricelist.model.Product;
-import org.junit.Test;
+import com.msfrolov.pricelist.service.PriceService;
+import com.msfrolov.pricelist.service.PriceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
+public class InitContent {
 
-public class PriceServiceImplTest {
+    private static final Logger log = LoggerFactory.getLogger(InitContent.class);
 
-    private static final Logger log = LoggerFactory.getLogger(PriceServiceImplTest.class);
-
-    private static List<String> readFileToList(String fileName) {
-        InputStream in = PriceServiceImplTest.class.getClassLoader().getResourceAsStream(fileName);
-        Scanner sc = new Scanner(in);
-        List<String> lines = new ArrayList<>();
-        while (sc.hasNextLine())
-            lines.add(sc.nextLine());
-        return lines;
-    }
-
-    @Test public void ShouldReturnAllProduct() throws Exception {
-        //given
-        PriceService service = new PriceServiceImpl();
-        //when
-        List<Product> all = service.findAll(Product.class);
-        //then
-        assertEquals(12, all.size());
-    }
-
-    @Test public void ShouldReturnAllProductWhichFitCriteria() throws Exception {
-        //given
-        PriceService service = new PriceServiceImpl();
-        //when
-        Map<String, Object> filters = new HashMap<>();
-        filters.put("name", "по");
-        List<Product> all = service.findByFilters(filters, Product.class);
-        //then
-        log.debug("!!!PRODUCTS: {}", all);
-        assertEquals(1, 1);
-    }
-
-    @Test public void ShouldAddTestDataInDBIfThereItIsEmpty() throws Exception {
+    public void initContent() {
         //given
         PriceService service = new PriceServiceImpl();
         List<Product> all = service.findAll(Product.class);
@@ -65,7 +33,6 @@ public class PriceServiceImplTest {
             handleList("Notebook Acer series: BGFYEADCB", acer, service);
             handleList("Notebook Acer series: AVCHYDBCN", sony, service);
         }
-
     }
 
     private void handleList(String categoryName, List<String> productNames, PriceService service) {
@@ -84,4 +51,12 @@ public class PriceServiceImplTest {
         }
     }
 
+    private List<String> readFileToList(String fileName) {
+        InputStream in = WelcomeAction.class.getClassLoader().getResourceAsStream(fileName);
+        Scanner sc = new Scanner(in);
+        List<String> lines = new ArrayList<>();
+        while (sc.hasNextLine())
+            lines.add(sc.nextLine());
+        return lines;
+    }
 }
